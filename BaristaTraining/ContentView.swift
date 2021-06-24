@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let coffees = ["latte", "cappuccino", "americano", "macchiato", "mocha", "flat white"]
+let coffees = ["mocha", "cappuccino", "macchiato", "irish coffee", "caffe au lait", "flat white", "breve", "espresso con panna", "mocha breve", "americano", "latte"]
 var ingredients = [String]()
 
 struct NewButton: View {
@@ -34,11 +34,13 @@ struct NewButton: View {
 struct ContentView: View {
     let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
     let randomInt = Int.random(in: 0..<coffees.count)
+    @State var showAlert = false
+    @State var isCorrect = false
 
     var body: some View {
         VStack {
             Spacer()
-            Text("Please make a " + coffees[0].uppercased())
+            Text("Please make a " + coffees[randomInt].uppercased())
             Spacer()
             Image("mug")
             Spacer()
@@ -72,11 +74,17 @@ struct ContentView: View {
             }
             // submit
             Button(action: {
-                let coffee = coffees[0]
-                print(checkIngredients(ingredients: ingredients, coffee: coffee))
+                let coffee = coffees[randomInt]
+                isCorrect = checkIngredients(ingredients: ingredients, coffee: coffee)
+                print("isCorrect:", isCorrect)
+                showAlert.toggle()
             }, label: {
                 Text("SUBMIT")
             })
+            .alert(isPresented: $showAlert, content: isCorrect ? {
+                   Alert(title: Text("Success"), message: Text("You made the coffee correctly :)"), dismissButton: .default(Text("OK")))
+                   } : { Alert(title: Text("Failure"), message: Text("You made the coffee incorrectly :("), dismissButton: .default(Text("Try Again"))) }
+            )
             
             Spacer()
         }
@@ -97,20 +105,53 @@ func changeIngredients(tapped: Bool, ingredients: inout [String], name: String) 
 }
 
 func checkIngredients(ingredients: [String], coffee: String) -> Bool {
-//    americano - water, espresso
-//    latte - espresso, steamed milk, milk foam
-    if coffee == "latte" {
-        if ingredients.count == 3 && ingredients.contains("espresso") && ingredients.contains("steamed milk") && ingredients.contains("milk foam") {
-            return true
-        }
+    if coffee == "mocha" {
+        return ingredients.count == 4 && ingredients.contains("espresso") && ingredients.contains("chocolate syrup") && ingredients.contains("steamed milk") && ingredients.contains("whipped cream")
     }
+
     if coffee == "cappuccino" {
-        if coffee.count == 2 && coffee.contains("hot water") && coffee.contains("steamed milk") {
-            return true
-        }
+        return ingredients.count == 3 && ingredients.contains("espresso") && ingredients.contains("steamed milk") && ingredients.contains("lots of milk foam")
+    }
+
+    if coffee == "macchiato" {
+        return ingredients.count == 2 && ingredients.contains("espresso") && ingredients.contains("milk foam")
+    }
+
+    if coffee == "irish coffee" {
+        return ingredients.count == 3 && ingredients.contains("coffee") && ingredients.contains("whipped cream") && ingredients.contains("irish whiskey")
+    }
+
+    if coffee == "caffe au lait" {
+        return ingredients.count == 2 && ingredients.contains("coffee") && ingredients.contains("steamed milk")
+    }
+
+    if coffee == "flat white" {
+        return ingredients.count == 2 && ingredients.contains("espresso") && ingredients.contains("steamed milk")
+    }
+
+    if coffee == "breve" {
+        return ingredients.count == 3 && ingredients.contains("espresso") && ingredients.contains("half & half") && ingredients.contains("milk foam")
+    }
+
+    if coffee == "espresso con panna" {
+        return ingredients.count == 2 && ingredients.contains("whipped cream") && ingredients.contains("espresso")
+    }
+
+    if coffee == "mocha breve" {
+        return ingredients.count == 4 && ingredients.contains("chocolate syrup") && ingredients.contains("whipped cream") && ingredients.contains("espresso") && ingredients.contains("half & half")
+    }
+
+    if coffee == "americano" {
+        return ingredients.count == 2 && ingredients.contains("espresso") && ingredients.contains("hot water")
+    }
+
+    if coffee == "latte" {
+        return ingredients.count == 3 && ingredients.contains("espresso") && ingredients.contains("steamed milk") && ingredients.contains("milk foam")
     }
     return false
 }
+
+
 
 
 struct MyButtonStyle: ButtonStyle {
@@ -138,17 +179,6 @@ struct MyButtonStyle: ButtonStyle {
                 AnyView(RoundedRectangle(cornerRadius: 10)
                  .stroke(myColor, lineWidth: 2))
                 )
-//                .foregroundColor(.white)
-//                .padding(15)
-//                .background(RoundedRectangle(cornerRadius: 5).fill(Color(red: 0.78, green: 0.56, blue: 0.44)))
-//                .compositingGroup()
-//                .shadow(color: .black, radius: 3)
-//                .opacity(self.pressed ? 0.5 : 1.0)
-//                .scaleEffect(self.pressed ? 0.8 : 1.0)
-//                .onLongPressGesture(minimumDuration: 2.5, maximumDistance: .infinity, pressing: { pressing in withAnimation(.easeInOut(duration: 1.0)) {
-//                    self.pressed = pressing
-//                    }
-//                }, perform: { })
         }
     }
 }
@@ -158,27 +188,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-        //                HStack(spacing: 20){
-        //                    Button(action: {
-        //                                    print("MyNewPrimitiveButton triggered. Is it printed ?")
-        //                                }){ Text("My NEW primitive Button").padding() }
-        //
-        //                    Button("Milk") {
-        //                        print("Milk")
-        //                    }
-        //                        .foregroundColor(.white)
-        //                        .padding()
-        //                        .background(Color.accentColor)
-        //                        .cornerRadius(8)
-        //                    Button("Espresso") {
-        //                        print("Espresso")
-        //                    }
-        //                    .foregroundColor(.white)
-        //                    .padding()
-        //                    .background(Color(red: 0.78, green: 0.56, blue: 0.44))
-        //                    .cornerRadius(10)
-        //                }
-                        
-
