@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-let coffees = ["mocha", "cappuccino", "macchiato", "irish coffee", "caffe au lait", "flat white", "breve", "espresso con panna", "mocha breve", "americano", "latte"]
-var ingredients = [String]()
+private let coffees = ["mocha", "cappuccino", "macchiato", "irish coffee", "caffe au lait", "flat white", "breve", "espresso con panna", "mocha breve", "americano", "latte"]
+private var ingredients = [String]()
 
-struct NewButton: View {
+struct IngredientBtn: View {
     var name: String
     var myColor: Color
     
@@ -27,20 +27,20 @@ struct NewButton: View {
             }, label: {
                 Text(name)
             })
-            .buttonStyle(MyButtonStyle(tapped: tapped, myColor: myColor))
+        .buttonStyle(MyButtonStyle(tapped: tapped, myColor: myColor))
     }
 }
 
 struct ContentView: View {
     let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
-    let randomInt = Int.random(in: 0..<coffees.count)
+    @State var randCoffee = getRandomCoffee()
     @State var showAlert = false
     @State var isCorrect = false
 
     var body: some View {
         VStack {
             Spacer()
-            Text("Please make a " + coffees[randomInt].uppercased())
+            Text("Please make a " + randCoffee.uppercased())
             Spacer()
             Image("mug")
             Spacer()
@@ -48,36 +48,37 @@ struct ContentView: View {
             //test button
             Button("Test"){
                 print("Test")
-                print(ingredients)
             }
             Group {
                 HStack{
-                    NewButton(name: "espresso", myColor: brown)
-                    NewButton(name: "hot water", myColor: brown)
+                    IngredientBtn(name: "espresso", myColor: brown)
+                    IngredientBtn(name: "hot water", myColor: brown)
                 }
                 HStack{
-                    NewButton(name: "brewed coffee", myColor: brown)
-                    NewButton(name: "steamed milk", myColor: brown)
+                    IngredientBtn(name: "brewed coffee", myColor: brown)
+                    IngredientBtn(name: "steamed milk", myColor: brown)
                 }
                 HStack{
-                    NewButton(name: "half & half", myColor: brown)
-                    NewButton(name: "whipped cream", myColor: brown)
+                    IngredientBtn(name: "half & half", myColor: brown)
+                    IngredientBtn(name: "whipped cream", myColor: brown)
                 }
                 HStack{
-                    NewButton(name: "milk foam", myColor: brown)
-                    NewButton(name: "lots of milk foam", myColor: brown)
+                    IngredientBtn(name: "milk foam", myColor: brown)
+                    IngredientBtn(name: "lots of milk foam", myColor: brown)
                 }
                 HStack{
-                    NewButton(name: "irish whiskey", myColor: brown)
-                    NewButton(name: "chocolate syrup", myColor: brown)
+                    IngredientBtn(name: "irish whiskey", myColor: brown)
+                    IngredientBtn(name: "chocolate syrup", myColor: brown)
                 }
             }
+            
             // submit
             Button(action: {
-                let coffee = coffees[randomInt]
-                isCorrect = checkIngredients(ingredients: ingredients, coffee: coffee)
-                print("isCorrect:", isCorrect)
+                isCorrect = checkIngredients(ingredients: ingredients, coffee: randCoffee)
                 showAlert.toggle()
+                if isCorrect {
+                    randCoffee = getRandomCoffee()
+                }
             }, label: {
                 Text("SUBMIT")
             })
@@ -89,6 +90,11 @@ struct ContentView: View {
             Spacer()
         }
     }
+}
+
+func getRandomCoffee() -> String {
+    let randomInt = Int.random(in: 0..<coffees.count)
+    return coffees[randomInt]
 }
 
 func changeIngredients(tapped: Bool, ingredients: inout [String], name: String) {
@@ -118,11 +124,11 @@ func checkIngredients(ingredients: [String], coffee: String) -> Bool {
     }
 
     if coffee == "irish coffee" {
-        return ingredients.count == 3 && ingredients.contains("coffee") && ingredients.contains("whipped cream") && ingredients.contains("irish whiskey")
+        return ingredients.count == 3 && ingredients.contains("brewed coffee") && ingredients.contains("whipped cream") && ingredients.contains("irish whiskey")
     }
 
     if coffee == "caffe au lait" {
-        return ingredients.count == 2 && ingredients.contains("coffee") && ingredients.contains("steamed milk")
+        return ingredients.count == 2 && ingredients.contains("brewed coffee") && ingredients.contains("steamed milk")
     }
 
     if coffee == "flat white" {
