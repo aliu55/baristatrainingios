@@ -76,27 +76,16 @@ struct IngredientsButtonStyle: ButtonStyle {
     var myColor: Color
     
     func makeBody(configuration: Configuration) -> some View {
-        MyButton(configuration: configuration, myColor: myColor, tapped: tapped)
-    }
-    
-    struct MyButton: View {
-        var pressed = false
-        
-        let configuration: Configuration
-        let myColor: Color
-        var tapped: Bool
-        
-        var body: some View {
-            return configuration.label
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                .background(tapped ?
-                AnyView(RoundedRectangle(cornerRadius: 10)
-                .stroke(myColor, lineWidth: 2)
-                .background(myColor.cornerRadius(10))) :
-                AnyView(RoundedRectangle(cornerRadius: 10)
-                 .stroke(myColor, lineWidth: 2))
-                )
-        }
+        return configuration
+            .label
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .background(tapped ?
+            AnyView(RoundedRectangle(cornerRadius: 10)
+            .stroke(myColor, lineWidth: 2)
+            .background(myColor.cornerRadius(10))) :
+            AnyView(RoundedRectangle(cornerRadius: 10)
+             .stroke(myColor, lineWidth: 2))
+            )
     }
 }
 
@@ -114,22 +103,18 @@ struct CoffeePage : View {
     @State var index : Int = 0
     @State var showAlert = false
     @State var isCorrect = false
-    
-    
-    //keep track of successful coffees
     @State var score = 0
     
     var body : some View {
         VStack(alignment: .center, spacing: 20) {
             if (self.index < coffees.count) {
-                
                 // render coffee label
-                Text("Please make a " + coffees[self.index].label)
+                Text("Please make a " + coffees[self.index].label.uppercased())
                 
                 // render mug image or coffees[self.index].img
                 Image("mug")
                 
-                // render IngredientsView
+                // render new IngredientsView
                 IngredientsView()
                 
                 // render submit button
