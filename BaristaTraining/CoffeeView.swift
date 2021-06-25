@@ -31,6 +31,7 @@ struct IngredientBtn: View {
             
             }, label: {
                 Text(name)
+                    .foregroundColor(tapped ? .white : darkBrown)
             })
         .buttonStyle(IngredientsButtonStyle(tapped: self.tapped, myColor: self.myColor))
         
@@ -51,7 +52,7 @@ struct IngredientBtn: View {
 
 
 struct IngredientsView: View {
-    let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
+    let brown = Color(red: 0.35, green: 0.25, blue: 0.21)
     let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
     var body: some View {
         VStack {
@@ -63,6 +64,7 @@ struct IngredientsView: View {
             .padding(.leading, 35)
             .padding(.trailing, 35)
         }
+        .padding(.bottom, 20)
     }
 }
 //struct IngredientsView: View {
@@ -111,6 +113,22 @@ struct IngredientsButtonStyle: ButtonStyle {
             )
     }
 } // end of IngredientsButtonStyle
+
+struct SubmitButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        return configuration
+            .label
+//            .padding(.top, 30)
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .background(
+                AnyView(RoundedRectangle(cornerRadius: 20)
+                .stroke(darkBrown, lineWidth: 2)
+                .background(darkBrown.cornerRadius(20)))
+            )
+    }
+    
+} // end of SubmitButtonStyle
         
 struct CoffeePage : View {
     // var for number of coffee
@@ -121,41 +139,58 @@ struct CoffeePage : View {
     @State var isCorrect = false
     
     var body : some View {
-        VStack(alignment: .center, spacing: 20) {
-            
-            // continue game if there are still coffees
-            if (self.index < coffees.count) {
-                
-                // render directions for the current coffee
-                Text("\(self.index+1). Please make a " + coffees[self.index].label.uppercased())
-                
-                // render mug image or coffees[self.index].img
-                Image("mug")
-                    .padding(.bottom, 50)
-                
-                IngredientsView()
-                
-                // render submit button, which when clicked
-                // will trigger an alert that will increment
-                // the index to go to the next coffee
-                Button(action:{
-                    self.onSubmit()
-                },label: {
-                    Text("SUBMIT")
-                })
-                .alert(isPresented: $showAlert, content: isCorrect ? {
-                    Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }))
-                } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
-                )
-                .padding(.top, 30)
-                
+        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+            ScrollView {
+                VStack(alignment: .center, spacing: 20) {
+                    
+                    // continue game if there are still coffees
+                    if (self.index < coffees.count) {
+                        
+                        // render directions for the current coffee
+                        Text("\(self.index+1). Please make a " + coffees[self.index].label.uppercased())
+                            .foregroundColor(darkBrown)
+                            .fontWeight(.heavy)
+                            .font(.system(size: 25))
+                            .padding(EdgeInsets(top: 80, leading: 20, bottom: 0, trailing: 20))
+                            .multilineTextAlignment(.center)
+                        
+                        // render mug image or coffees[self.index].img
+                        Image("mug")
+                            .padding(.bottom, 20)
+                        
+                        Text("Choose the correct ingredients.")
+                            .font(.system(size: 15))
+                            .foregroundColor(darkBrown)
+                            .padding(.bottom, 10)
+                        
+                        // render all the ingredients as buttons
+                        IngredientsView()
+                        
+                        // render submit button, which when clicked
+                        // will trigger an alert that will increment
+                        // the index to go to the next coffee
+                        Button(action:{
+                            self.onSubmit()
+                        },label: {
+                            Text("SUBMIT")
+                                .foregroundColor(.white)
+                        })
+                        .buttonStyle(SubmitButtonStyle())
+                        .alert(isPresented: $showAlert, content: isCorrect ? {
+                            Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }))
+                        } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
+                        )
+                        
+                    }
+                    
+                    // after last coffee render final view with score
+                    else {
+                        FinalView(score : self.score)
+                    }
+                }.padding(.bottom, 30)
             }
-            
-            // after last coffee render final view with score
-            else {
-                FinalView(score : self.score)
-            }
-        }
+        }.background(beige.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+        
     }
     
     func onSubmit() {
