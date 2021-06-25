@@ -49,34 +49,48 @@ struct IngredientBtn: View {
     }
 } // end of IngredientBtn
 
+
 struct IngredientsView: View {
     let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
-
+    let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
     var body: some View {
         VStack {
-            HStack{
-                IngredientBtn(name: "espresso", myColor: brown)
-                IngredientBtn(name: "hot water", myColor: brown)
-            }
-            HStack{
-                IngredientBtn(name: "brewed coffee", myColor: brown)
-                IngredientBtn(name: "steamed milk", myColor: brown)
-            }
-            HStack{
-                IngredientBtn(name: "half & half", myColor: brown)
-                IngredientBtn(name: "whipped cream", myColor: brown)
-            }
-            HStack{
-                IngredientBtn(name: "milk foam", myColor: brown)
-                IngredientBtn(name: "lots of milk foam", myColor: brown)
-            }
-            HStack{
-                IngredientBtn(name: "irish whiskey", myColor: brown)
-                IngredientBtn(name: "chocolate syrup", myColor: brown)
-            }
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 2), spacing: 20, content: {
+                ForEach(0...allIngredients.count - 1, id: \.self) { index in
+                    IngredientBtn(name: allIngredients[index], myColor: brown)
+                }
+            })
         }
     }
-} // end of IngredientsView
+}
+//struct IngredientsView: View {
+//    let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
+//
+//    var body: some View {
+//        VStack {
+//            HStack{
+//                IngredientBtn(name: "espresso", myColor: brown)
+//                IngredientBtn(name: "hot water", myColor: brown)
+//            }
+//            HStack{
+//                IngredientBtn(name: "brewed coffee", myColor: brown)
+//                IngredientBtn(name: "steamed milk", myColor: brown)
+//            }
+//            HStack{
+//                IngredientBtn(name: "half & half", myColor: brown)
+//                IngredientBtn(name: "whipped cream", myColor: brown)
+//            }
+//            HStack{
+//                IngredientBtn(name: "milk foam", myColor: brown)
+//                IngredientBtn(name: "lots of milk foam", myColor: brown)
+//            }
+//            HStack{
+//                IngredientBtn(name: "irish whiskey", myColor: brown)
+//                IngredientBtn(name: "chocolate syrup", myColor: brown)
+//            }
+//        }
+//    }
+//} // end of IngredientsView
 
 struct IngredientsButtonStyle: ButtonStyle {
     var tapped: Bool

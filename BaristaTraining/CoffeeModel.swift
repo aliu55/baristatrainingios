@@ -7,6 +7,7 @@
 
 import Foundation
 
+// structure of information for a single coffee
 struct CoffeeModel {
     var label: String
     var answer: Set<String>

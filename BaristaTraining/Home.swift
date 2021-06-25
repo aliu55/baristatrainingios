@@ -11,8 +11,6 @@ import SwiftUI
 struct ContentView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    //var for the score
-    @State var score = 0
     
     var body: some View {
         NavigationView{
