@@ -9,8 +9,6 @@ import SwiftUI
 
 //first view of the app
 struct ContentView: View {
-
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationView{

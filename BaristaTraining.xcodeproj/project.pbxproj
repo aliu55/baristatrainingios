@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5291A80826867B59008EA488 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5291A80726867B59008EA488 /* LaunchScreen.storyboard */; };
 		6E003E0226844BE900ABEDA8 /* BaristaTrainingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E003E0126844BE900ABEDA8 /* BaristaTrainingApp.swift */; };
 		6E003E0426844BE900ABEDA8 /* CoffeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E003E0326844BE900ABEDA8 /* CoffeeView.swift */; };
 		6E003E0626844BEE00ABEDA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E003E0526844BEE00ABEDA8 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5291A80726867B59008EA488 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E003DFE26844BE900ABEDA8 /* BaristaTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaristaTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E003E0126844BE900ABEDA8 /* BaristaTrainingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaristaTrainingApp.swift; sourceTree = "<group>"; };
 		6E003E0326844BE900ABEDA8 /* CoffeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				6E003E0526844BEE00ABEDA8 /* Assets.xcassets */,
 				6E003E0A26844BEE00ABEDA8 /* Info.plist */,
 				6E003E0726844BEE00ABEDA8 /* Preview Content */,
+				5291A80726867B59008EA488 /* LaunchScreen.storyboard */,
 			);
 			path = BaristaTraining;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5291A80826867B59008EA488 /* LaunchScreen.storyboard in Resources */,
 				6E003E0926844BEE00ABEDA8 /* Preview Assets.xcassets in Resources */,
 				6E003E0626844BEE00ABEDA8 /* Assets.xcassets in Resources */,
 			);
