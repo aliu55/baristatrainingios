@@ -13,6 +13,7 @@
 		6E003E0926844BEE00ABEDA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E003E0826844BEE00ABEDA8 /* Preview Assets.xcassets */; };
 		6E9652E72685443F00B115FA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9652E62685443F00B115FA /* Home.swift */; };
 		6E9652E9268548B800B115FA /* CoffeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9652E8268548B800B115FA /* CoffeeModel.swift */; };
+		6E9652EB2685BB9B00B115FA /* FinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9652EA2685BB9B00B115FA /* FinalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6E003E0A26844BEE00ABEDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E9652E62685443F00B115FA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		6E9652E8268548B800B115FA /* CoffeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeModel.swift; sourceTree = "<group>"; };
+		6E9652EA2685BB9B00B115FA /* FinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				6E003E0126844BE900ABEDA8 /* BaristaTrainingApp.swift */,
 				6E003E0326844BE900ABEDA8 /* CoffeeView.swift */,
 				6E9652E8268548B800B115FA /* CoffeeModel.swift */,
+				6E9652EA2685BB9B00B115FA /* FinalView.swift */,
 				6E9652E62685443F00B115FA /* Home.swift */,
 				6E003E0526844BEE00ABEDA8 /* Assets.xcassets */,
 				6E003E0A26844BEE00ABEDA8 /* Info.plist */,
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E003E0426844BE900ABEDA8 /* CoffeeView.swift in Sources */,
+				6E9652EB2685BB9B00B115FA /* FinalView.swift in Sources */,
 				6E9652E9268548B800B115FA /* CoffeeModel.swift in Sources */,
 				6E9652E72685443F00B115FA /* Home.swift in Sources */,
 				6E003E0226844BE900ABEDA8 /* BaristaTrainingApp.swift in Sources */,

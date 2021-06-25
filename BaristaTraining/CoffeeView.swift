@@ -129,6 +129,9 @@ struct CoffeePage : View {
                 )
                 
             } // end of if
+            else {
+                FinalView(score : self.score)
+            }
         } // end of VStack
     } // end of body
     

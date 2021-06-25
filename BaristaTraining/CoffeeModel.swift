@@ -35,14 +35,14 @@ var coffees : [CoffeeModel] = [
 
     CoffeeModel(
             label: "irish coffee",
-            answer: ["coffee", "whipped cream", "irish whiskey"],
-            message: "irish coffee = coffee + whipped cream + irish whiskey"
+            answer: ["brewed coffee", "whipped cream", "irish whiskey"],
+            message: "irish coffee = brewed coffee + whipped cream + irish whiskey"
     ),
 
     CoffeeModel(
             label: "caffe au lait",
-            answer: ["coffee", "steamed milk"],
-            message: "caffe au lait = coffee + steamed milk"
+            answer: ["brewed coffee", "steamed milk"],
+            message: "caffe au lait = brewed coffee + steamed milk"
     ),
 
     CoffeeModel(
