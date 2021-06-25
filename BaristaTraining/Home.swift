@@ -10,6 +10,7 @@ import SwiftUI
 //first view of the app
 struct ContentView: View {
 
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     //var for the score
     @State var score = 0
     
@@ -31,7 +32,10 @@ struct ContentView: View {
 //                    }
 //                }
             }
-//            .navigationBarTitle("Quiz example",displayMode: .inline)
+            // Custom nav bar back button
+            .navigationBarTitle("Restart",displayMode: .inline)
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

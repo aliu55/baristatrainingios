@@ -104,18 +104,16 @@ struct CoffeePage : View {
     @State var showAlert = false
     @State var isCorrect = false
     @State var score = 0
+    @State var view = IngredientsView()
     
     var body : some View {
         VStack(alignment: .center, spacing: 20) {
             if (self.index < coffees.count) {
-                // render coffee label
-                Text("Please make a " + coffees[self.index].label.uppercased())
+                // render directions for the current coffee
+                Text("\(self.index+1). Please make a " + coffees[self.index].label.uppercased())
                 
                 // render mug image or coffees[self.index].img
                 Image("mug")
-                
-                // render new IngredientsView
-                IngredientsView()
                 
                 // render submit button
                 Button(action:{
@@ -124,8 +122,8 @@ struct CoffeePage : View {
                     Text("SUBMIT")
                 })
                 .alert(isPresented: $showAlert, content: isCorrect ? {
-                   Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: .default(Text("NEXT")))
-                } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index-1].message), dismissButton: .default(Text("NEXT"))) }
+                    Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }))
+                } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
                 )
                 
             } // end of if
@@ -146,9 +144,6 @@ struct CoffeePage : View {
         
         // show alert
         showAlert.toggle()
-        
-        // incremet index to go to next CoffeeModel
-        self.index = self.index + 1
         
     }
     
