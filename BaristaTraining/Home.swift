@@ -9,6 +9,9 @@ import SwiftUI
 
 //first view of the app
 struct HomeView: View {
+    init() {
+        UINavigationBar.changeAppearance(clear: true)
+    }
     
     var body: some View {
         NavigationView{
@@ -28,7 +31,7 @@ struct HomeView: View {
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
                 )
-        }
+        }.accentColor(TEXT_COLOR)
     }
     
     private var splashImageBackground: some View {
