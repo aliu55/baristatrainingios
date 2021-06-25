@@ -16,24 +16,34 @@ struct IngredientBtn: View {
     @State var tapped = false
     
     var body: some View {
+        
         Button(action: {
                 tapped.toggle()
-                changeIngredients(
-                    tapped: tapped,
-                    ingredients: &ingredients,
-                    name: name
-                )
+                self.changeIngredients(ingredients: &ingredients)
             }, label: {
                 Text(name)
             })
-        .buttonStyle(MyButtonStyle(tapped: tapped, myColor: myColor))
-    }
+        .buttonStyle(IngredientsButtonStyle(tapped: self.tapped, myColor: self.myColor))
+        
+    } // end of body
+    
+    func changeIngredients(ingredients: inout [String]) {
+        
+        if self.tapped {
+            ingredients.append(self.name)
+            print("TAPPED:", ingredients)
+        } else {
+            let index = ingredients.firstIndex(of: self.name)
+            ingredients.remove(at: index!)
+            print("UNTAPPED:", ingredients)
+        }
+        
+    } //end of changeIngredients
+
 }
 
 struct IngredientsView: View {
     let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
-    @State var showAlert = false
-    @State var isCorrect = false
 
     var body: some View {
         VStack {
@@ -61,24 +71,7 @@ struct IngredientsView: View {
     }
 } // end of IngredientsView
 
-func changeIngredients(tapped: Bool, ingredients: inout [String], name: String) {
-    
-    if tapped {
-        ingredients.append(name)
-        print("TAPPED:", ingredients)
-    } else {
-        let index = ingredients.firstIndex(of: name)
-        ingredients.remove(at: index!)
-        print("UNTAPPED:", ingredients)
-    }
-    
-}
-
-func checkIngredients(ingredients: [String], coffee: String) -> Bool {
-    return true
-}
-
-struct MyButtonStyle: ButtonStyle {
+struct IngredientsButtonStyle: ButtonStyle {
     var tapped: Bool
     var myColor: Color
     
@@ -118,8 +111,10 @@ struct MyButtonStyle: ButtonStyle {
 //    func buttonAction
         
 struct CoffeePage : View {
-    //index of Coffees array
     @State var index : Int = 0
+    @State var showAlert = false
+    @State var isCorrect = false
+    
     
     //keep track of successful coffees
     @State var score = 0
@@ -143,21 +138,38 @@ struct CoffeePage : View {
                 },label: {
                     Text("SUBMIT")
                 })
+                .alert(isPresented: $showAlert, content: isCorrect ? {
+                   Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: .default(Text("NEXT")))
+                } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index-1].message), dismissButton: .default(Text("NEXT"))) }
+                )
                 
             } // end of if
         } // end of VStack
     } // end of body
     
     func onSubmit() {
+        
         // check if ingredients match the answer
-        if (coffees[self.index].answer == ingredients) {
+        isCorrect = self.checkIngredients(ingredients: ingredients)
+        if isCorrect {
             self.score += 1
+            print("SCORE:", self.score)
         }
+        
+        // show alert
+        showAlert.toggle()
         
         // incremet index to go to next CoffeeModel
         self.index = self.index + 1
+        
+    }
+    
+    func checkIngredients(ingredients: [String]) -> Bool {
+        return coffees[self.index].answer == ingredients
     }
 }
+
+
 
 
 //Button(action: {
