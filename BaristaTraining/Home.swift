@@ -46,23 +46,3 @@ struct Home_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-//ContentView
-// state var score = 0
-//    NavigationView
-//      Text: instructions
-//      Button: Game()
-
-//Home_Previews
-//    ContentView()
-
-//Game
-//    State i: index of coffees array
-//    State score: tracks score
-//    var body
-//        Text
-//        Buttons
-//        Submit
-//    func buttonAction
-        

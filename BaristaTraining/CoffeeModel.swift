@@ -9,7 +9,7 @@ import Foundation
 
 struct CoffeeModel {
     var label: String
-    var answer: [String]
+    var answer: Set<String>
     var message: String
 }
 

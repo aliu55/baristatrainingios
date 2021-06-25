@@ -7,40 +7,47 @@
 
 import SwiftUI
 
-private var ingredients = [String]()
+// set for storing selected ingredients
+private var ingredients = Set<String>()
 
 struct IngredientBtn: View {
+    
+    // var for name of coffee
     var name: String
+    
+    // var for styling the color of the buttons
     var myColor: Color
     
+    // var for tracking whether button is clicked
     @State var tapped = false
     
     var body: some View {
         
         Button(action: {
+                
+                // tap or untap the ingredients button and update ingredients set
                 tapped.toggle()
                 self.changeIngredients(ingredients: &ingredients)
+            
             }, label: {
                 Text(name)
             })
         .buttonStyle(IngredientsButtonStyle(tapped: self.tapped, myColor: self.myColor))
         
-    } // end of body
+    }
     
-    func changeIngredients(ingredients: inout [String]) {
+    func changeIngredients(ingredients: inout Set<String>) {
         
+        // if selected, add ingredient to
+        // ingredients set else remove it
         if self.tapped {
-            ingredients.append(self.name)
-            print("TAPPED:", ingredients)
+            ingredients.insert(self.name)
         } else {
-            let index = ingredients.firstIndex(of: self.name)
-            ingredients.remove(at: index!)
-            print("UNTAPPED:", ingredients)
+            ingredients.remove(self.name)
         }
         
-    } //end of changeIngredients
-
-}
+    }
+} // end of IngredientBtn
 
 struct IngredientsView: View {
     let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
@@ -87,35 +94,33 @@ struct IngredientsButtonStyle: ButtonStyle {
              .stroke(myColor, lineWidth: 2))
             )
     }
-}
-
-
-//Game
-//    State i: index of coffees array
-//    State score: tracks score
-//    var body
-//        Text
-//        Buttons
-//        Submit
-//    func buttonAction
+} // end of IngredientsButtonStyle
         
 struct CoffeePage : View {
+    // var for number of coffee
     @State var index : Int = 0
+    // var for correct answers
+    @State var score = 0
     @State var showAlert = false
     @State var isCorrect = false
-    @State var score = 0
-    @State var view = IngredientsView()
     
     var body : some View {
         VStack(alignment: .center, spacing: 20) {
+            
+            // continue game if there are still coffees
             if (self.index < coffees.count) {
+                
                 // render directions for the current coffee
                 Text("\(self.index+1). Please make a " + coffees[self.index].label.uppercased())
                 
                 // render mug image or coffees[self.index].img
                 Image("mug")
                 
-                // render submit button
+                IngredientsView()
+                
+                // render submit button, which when clicked
+                // will trigger an alert that will increment
+                // the index to go to the next coffee
                 Button(action:{
                     self.onSubmit()
                 },label: {
@@ -126,20 +131,23 @@ struct CoffeePage : View {
                 } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
                 )
                 
-            } // end of if
+            }
+            
+            // after last coffee render final view with score
             else {
                 FinalView(score : self.score)
             }
-        } // end of VStack
-    } // end of body
+        }
+    }
     
     func onSubmit() {
         
-        // check if ingredients match the answer
+        // check if ingredients set match the coffee's answer
         isCorrect = self.checkIngredients(ingredients: ingredients)
+        
+        // increment score if correct
         if isCorrect {
             self.score += 1
-            print("SCORE:", self.score)
         }
         
         // show alert
@@ -147,10 +155,11 @@ struct CoffeePage : View {
         
     }
     
-    func checkIngredients(ingredients: [String]) -> Bool {
+    func checkIngredients(ingredients: Set<String>) -> Bool {
         return coffees[self.index].answer == ingredients
     }
-}
+
+} // end of CoffeePage
 
 
 
