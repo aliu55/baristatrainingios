@@ -55,11 +55,13 @@ struct IngredientsView: View {
     let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
     var body: some View {
         VStack {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 2), spacing: 20, content: {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 20, content: {
                 ForEach(0...allIngredients.count - 1, id: \.self) { index in
                     IngredientBtn(name: allIngredients[index], myColor: brown)
                 }
             })
+            .padding(.leading, 35)
+            .padding(.trailing, 35)
         }
     }
 }
@@ -129,6 +131,7 @@ struct CoffeePage : View {
                 
                 // render mug image or coffees[self.index].img
                 Image("mug")
+                    .padding(.bottom, 50)
                 
                 IngredientsView()
                 
@@ -144,6 +147,7 @@ struct CoffeePage : View {
                     Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }))
                 } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
                 )
+                .padding(.top, 30)
                 
             }
             
@@ -174,20 +178,3 @@ struct CoffeePage : View {
     }
 
 } // end of CoffeePage
-
-
-
-
-//Button(action: {
-//    isCorrect = checkIngredients(ingredients: ingredients, coffee: randCoffee)
-//    showAlert.toggle()
-//    if isCorrect {
-//        randCoffee = getRandomCoffee()
-//    }
-//}, label: {
-//    Text("SUBMIT")
-//})
-//.alert(isPresented: $showAlert, content: isCorrect ? {
-//       Alert(title: Text("Success"), message: Text("You made the coffee correctly :)"), dismissButton: .default(Text("OK")))
-//       } : { Alert(title: Text("Failure"), message: Text("You made the coffee incorrectly :("), dismissButton: .default(Text("Try Again"))) }
-//)
