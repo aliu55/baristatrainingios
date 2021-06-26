@@ -8,7 +8,6 @@
 import SwiftUI
 
 // set for storing selected ingredients
-private var ingredients = Set<String>()
 
 // MARK: Ingredients View
 struct IngredientsView: View {
@@ -173,7 +172,7 @@ struct CoffeePage : View {
         
         // check if ingredients set match the coffee's answer
         isCorrect = self.checkIngredients(ingredients: ingredients)
-        
+        print("INGREDIENTS:", ingredients)
         // increment score if correct
         if isCorrect {
             self.score += 1

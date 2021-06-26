@@ -14,6 +14,9 @@ struct CoffeeModel {
     var message: String
 }
 
+// array for storing the ingredients that user selects
+var ingredients = Set<String>()
+
 var coffees : [CoffeeModel] = [
 
     CoffeeModel(
@@ -84,3 +87,7 @@ var coffees : [CoffeeModel] = [
     
 ]
 
+// clears all the selected ingredients from array
+func clearSelectedIngredients() {
+    ingredients.removeAll()
+}

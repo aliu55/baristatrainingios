@@ -32,7 +32,7 @@ struct HomeView: View {
                             Text("START TRAINING")
                             .foregroundColor(darkBrown)
                         }
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded{ clearSelectedIngredients() })
                 }
                 // Custom nav bar back button
                 .navigationBarTitle("Restart",displayMode: .inline)
