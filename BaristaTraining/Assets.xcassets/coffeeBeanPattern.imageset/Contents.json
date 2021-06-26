@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "mug.png",
+      "filename" : "coffeeBeanPattern@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "mug@2x.png",
+      "filename" : "coffeeBeanPattern@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "mug@3x.png",
+      "filename" : "coffeeBeanPattern@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

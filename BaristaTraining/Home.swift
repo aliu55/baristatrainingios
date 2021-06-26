@@ -11,13 +11,16 @@ let darkBrown = Color(red: 0.28, green: 0.17, blue: 0.11)
 let beige = Color(red: 0.98, green: 0.96, blue: 0.93)
 
 //first view of the app
-struct ContentView: View {
-    
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+struct HomeView: View {
+    init() {
+        UINavigationBar.changeAppearance(clear: true)
+    }
     
     var body: some View {
         ZStack {
             NavigationView{
+                splashImageBackground
+                    .overlay(
                 VStack(spacing: 20){
 
                     Text("Barista Master")
@@ -27,23 +30,40 @@ struct ContentView: View {
 
                     //button to start the quiz
                     NavigationLink(destination: CoffeePage()) {
-                        Text("START TRAINING")
+                        VStack(spacing: 20){
+                            Image("play")
+                            Text("START TRAINING")
                             .foregroundColor(darkBrown)
+                        }
                     }
                 }
                 // Custom nav bar back button
                 .navigationBarTitle("Restart",displayMode: .inline)
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
-            }.background(beige.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+                )
+            }
+            .accentColor(TEXT_COLOR)
+            .background(beige.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+        }
+    }
+                
+    private var splashImageBackground: some View {
+        GeometryReader { geometry in
+            Image("coffeeBeanPattern")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width: geometry.size.width)
         }
         
     }
+
 }
 
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView()
     }
 }

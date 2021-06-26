@@ -119,7 +119,6 @@ struct SubmitButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         return configuration
             .label
-//            .padding(.top, 30)
             .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
             .background(
                 AnyView(RoundedRectangle(cornerRadius: 20)
@@ -147,21 +146,22 @@ struct CoffeePage : View {
                     if (self.index < coffees.count) {
                         
                         // render directions for the current coffee
-                        Text("\(self.index+1). Please make a " + coffees[self.index].label.uppercased())
+                        Text("#\(self.index+1): Please make a " + coffees[self.index].label.uppercased())
                             .foregroundColor(darkBrown)
                             .fontWeight(.heavy)
                             .font(.system(size: 25))
-                            .padding(EdgeInsets(top: 80, leading: 20, bottom: 0, trailing: 20))
+                            .padding(EdgeInsets(top: 40, leading: 20, bottom: 0, trailing: 20))
                             .multilineTextAlignment(.center)
                         
                         // render mug image or coffees[self.index].img
                         Image("mug")
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 25)
+                            .padding(.top, 25)
                         
                         Text("Choose the correct ingredients.")
                             .font(.system(size: 15))
                             .foregroundColor(darkBrown)
-                            .padding(.bottom, 10)
+                            .padding(.bottom, 20)
                         
                         // render all the ingredients as buttons
                         IngredientsView()
@@ -187,9 +187,11 @@ struct CoffeePage : View {
                     else {
                         FinalView(score : self.score)
                     }
-                }.padding(.bottom, 30)
+                }
+                .padding(.bottom, 40)
             }
-        }.background(beige.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+        }
+        .background(beige.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
         
     }
     
