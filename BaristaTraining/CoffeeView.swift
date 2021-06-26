@@ -172,7 +172,7 @@ struct CoffeePage : View {
         
         // check if ingredients set match the coffee's answer
         isCorrect = self.checkIngredients(ingredients: ingredients)
-        print("INGREDIENTS:", ingredients)
+
         // increment score if correct
         if isCorrect {
             self.score += 1
