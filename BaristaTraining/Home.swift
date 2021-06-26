@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-let darkBrown = Color(red: 0.28, green: 0.17, blue: 0.11)
-let beige = Color(red: 0.98, green: 0.96, blue: 0.93)
-
 //first view of the app
 struct HomeView: View {
     init() {

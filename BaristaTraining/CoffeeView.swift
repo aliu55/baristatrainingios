@@ -10,11 +10,32 @@ import SwiftUI
 // set for storing selected ingredients
 private var ingredients = Set<String>()
 
+// MARK: Ingredients View
+struct IngredientsView: View {
+    let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
+    
+    var body: some View {
+        VStack {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 20, content: {
+                ForEach(0...allIngredients.count - 1, id: \.self) { index in
+                    HStack {
+                        IngredientBtn(name: allIngredients[index], myColor: LIGHT_BROWN)
+                    }
+                    .padding(.leading, -10)
+                    .padding(.trailing, -10)
+                }
+            })
+            .padding(.leading, 35)
+            .padding(.trailing, 35)
+        }
+        .padding(.bottom, 20)
+    }
+}
+
 struct IngredientBtn: View {
     
     // var for name of coffee
     var name: String
-    
     // var for styling the color of the buttons
     var myColor: Color
     
@@ -24,7 +45,6 @@ struct IngredientBtn: View {
     var body: some View {
         
         Button(action: {
-                
                 // tap or untap the ingredients button and update ingredients set
                 tapped.toggle()
                 self.changeIngredients(ingredients: &ingredients)
@@ -38,7 +58,6 @@ struct IngredientBtn: View {
     }
     
     func changeIngredients(ingredients: inout Set<String>) {
-        
         // if selected, add ingredient to
         // ingredients set else remove it
         if self.tapped {
@@ -50,52 +69,7 @@ struct IngredientBtn: View {
     }
 } // end of IngredientBtn
 
-
-struct IngredientsView: View {
-    let brown = Color(red: 0.35, green: 0.25, blue: 0.21)
-    let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
-    var body: some View {
-        VStack {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 20, content: {
-                ForEach(0...allIngredients.count - 1, id: \.self) { index in
-                    IngredientBtn(name: allIngredients[index], myColor: brown)
-                }
-            })
-            .padding(.leading, 35)
-            .padding(.trailing, 35)
-        }
-        .padding(.bottom, 20)
-    }
-}
-//struct IngredientsView: View {
-//    let brown = Color(red: 0.78, green: 0.56, blue: 0.44)
-//
-//    var body: some View {
-//        VStack {
-//            HStack{
-//                IngredientBtn(name: "espresso", myColor: brown)
-//                IngredientBtn(name: "hot water", myColor: brown)
-//            }
-//            HStack{
-//                IngredientBtn(name: "brewed coffee", myColor: brown)
-//                IngredientBtn(name: "steamed milk", myColor: brown)
-//            }
-//            HStack{
-//                IngredientBtn(name: "half & half", myColor: brown)
-//                IngredientBtn(name: "whipped cream", myColor: brown)
-//            }
-//            HStack{
-//                IngredientBtn(name: "milk foam", myColor: brown)
-//                IngredientBtn(name: "lots of milk foam", myColor: brown)
-//            }
-//            HStack{
-//                IngredientBtn(name: "irish whiskey", myColor: brown)
-//                IngredientBtn(name: "chocolate syrup", myColor: brown)
-//            }
-//        }
-//    }
-//} // end of IngredientsView
-
+// MARK: Style
 struct IngredientsButtonStyle: ButtonStyle {
     var tapped: Bool
     var myColor: Color
@@ -128,7 +102,8 @@ struct SubmitButtonStyle: ButtonStyle {
     }
     
 } // end of SubmitButtonStyle
-        
+
+// MARK: Coffee View
 struct CoffeePage : View {
     // var for number of coffee
     @State var index : Int = 0
@@ -150,18 +125,17 @@ struct CoffeePage : View {
                             .foregroundColor(darkBrown)
                             .fontWeight(.heavy)
                             .font(.system(size: 25))
-                            .padding(EdgeInsets(top: 40, leading: 20, bottom: 0, trailing: 20))
+                            .padding(EdgeInsets(top: 40, leading: 20, bottom: 2, trailing: 20))
                             .multilineTextAlignment(.center)
-                        
-                        // render mug image or coffees[self.index].img
-                        Image("mug")
-                            .padding(.bottom, 25)
-                            .padding(.top, 25)
                         
                         Text("Choose the correct ingredients.")
                             .font(.system(size: 15))
                             .foregroundColor(darkBrown)
-                            .padding(.bottom, 20)
+                        
+                        // render mug image or coffees[self.index].img
+                        Image("mug")
+                            .padding(.bottom, 30)
+                            .padding(.top, 30)
                         
                         // render all the ingredients as buttons
                         IngredientsView()
@@ -180,7 +154,7 @@ struct CoffeePage : View {
                             Alert(title: Text("Correct"), message: Text("You made the coffee correctly!"), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }))
                         } : { Alert(title: Text("Incorrect"), message: Text(coffees[self.index].message), dismissButton: Alert.Button.default(Text("NEXT"), action: { self.index += 1 }) ) }
                         )
-                        
+                        .padding(.top, 10)
                     }
                     
                     // after last coffee render final view with score
