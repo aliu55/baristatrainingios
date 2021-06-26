@@ -12,19 +12,19 @@ struct FinalView : View {
     var body: some View {
         VStack() {
             if score == NUMBER_OF_QUESTIONS  {
-                VStack(alignment: .leading, spacing: 50) {
+                VStack(alignment: .leading, spacing: 60) {
                     Text("Congrats! You have completed level 1 of the barista training. \n\nNow go have some coffee to celebrate!")
                         .foregroundColor(darkBrown)
                         .fontWeight(.heavy)
                         .font(.system(size: 25))
                     
-                    Text("Please leave a review if you'd like to see more levels added :)")
+                    Text("Please leave a review if you enjoyed this app :)")
                         .foregroundColor(darkBrown)
                         .font(.system(size: 15))
                 }
                 .padding(EdgeInsets(top: 120, leading: 20, bottom: 0, trailing: 80))
             } else {
-                Text("You have failed the barista training quiz. Nice try! \n\nNumber of correct answers: \(score)")
+                Text("You are almost there. Nice try! \n\nNumber of correct answers: \(score)")
                     .foregroundColor(darkBrown)
                     .fontWeight(.heavy)
                     .font(.system(size: 25))
@@ -32,5 +32,12 @@ struct FinalView : View {
             }
             
         }
+        .frame(
+          minWidth: 0,
+          maxWidth: .infinity,
+          minHeight: 0,
+          maxHeight: .infinity,
+          alignment: .topLeading
+        )
     }
 }

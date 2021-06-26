@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// set for storing selected ingredients
-
 // MARK: Ingredients View
 struct IngredientsView: View {
     let allIngredients = ["espresso", "brewed coffee", "hot water", "steamed milk", "milk foam", "lots of milk foam", "half & half", "whipped cream", "irish whiskey", "chocolate syrup"]
